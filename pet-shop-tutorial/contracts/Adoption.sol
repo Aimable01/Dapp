@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT 
 pragma solidity ^0.8.28;
 
 contract Adoption {
@@ -9,5 +10,9 @@ contract Adoption {
         adopters[petId] = msg.sender;
 
         return petId;
+    }
+
+    function getAdopters() public view returns (address[16] memory){
+        return adopters;
     }
 }
