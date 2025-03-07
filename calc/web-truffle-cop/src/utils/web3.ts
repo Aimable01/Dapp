@@ -1,23 +1,51 @@
 import Web3 from "web3";
 
-const contractAddress = "0x1CE394D894D6e21339ccF7e9a2e371701a0ED711";
+const contractAddress = "0x591cd1229AEf624Aa91828Ff52A716409C7c55E2";
 const contractABI = [
   {
     inputs: [],
-    stateMutability: "nonpayable",
-    type: "constructor",
-  },
-  {
-    inputs: [],
-    name: "message",
-    outputs: [{ internalType: "string", name: "", type: "string" }],
+    name: "result",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "view",
     type: "function",
   },
   {
-    inputs: [{ internalType: "string", name: "_message", type: "string" }],
-    name: "setMessage",
-    outputs: [],
+    inputs: [
+      { internalType: "uint256", name: "num1", type: "uint256" },
+      { internalType: "uint256", name: "num2", type: "uint256" },
+    ],
+    name: "add",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "num1", type: "uint256" },
+      { internalType: "uint256", name: "num2", type: "uint256" },
+    ],
+    name: "sub",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "num1", type: "uint256" },
+      { internalType: "uint256", name: "num2", type: "uint256" },
+    ],
+    name: "mul",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "uint256", name: "num1", type: "uint256" },
+      { internalType: "uint256", name: "num2", type: "uint256" },
+    ],
+    name: "div",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
     stateMutability: "nonpayable",
     type: "function",
   },
@@ -36,11 +64,33 @@ export const initWeb3 = async () => {
   }
 };
 
-export const getMessage = async () => {
-  return await contract.methods.message().call();
+export const getResult = async () => {
+  return await contract.methods.result().call();
 };
 
-export const setMessage = async (newMessage: any) => {
+export const calculate = async (
+  num1: number,
+  num2: number,
+  operator: string
+) => {
   const accounts = await web3.eth.getAccounts();
-  await contract.methods.setMessage(newMessage).send({ from: accounts[0] });
+  let method;
+  switch (operator) {
+    case "+":
+      method = contract.methods.add(num1, num2);
+      break;
+    case "-":
+      method = contract.methods.sub(num1, num2);
+      break;
+    case "*":
+      method = contract.methods.mul(num1, num2);
+      break;
+    case "/":
+      method = contract.methods.div(num1, num2);
+      break;
+    default:
+      throw new Error("Invalid operator");
+  }
+  await method.send({ from: accounts[0] });
+  return await getResult();
 };
