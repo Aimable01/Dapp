@@ -20,16 +20,92 @@ function App() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Hello World DApp</h1>
-      <p>Current Message: {message}</p>
-      <input
-        type="text"
-        value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
-        placeholder="Enter new message"
-      />
-      <button onClick={handleUpdateMessage}>Update Message</button>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
+    >
+      <div
+        style={{
+          background: "white",
+          borderRadius: "12px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          padding: "2rem",
+          width: "100%",
+          maxWidth: "500px",
+          textAlign: "center",
+        }}
+      >
+        <h1 style={{ color: "#1a1a1a", marginBottom: "1.5rem" }}>
+          🎮 Blockchain Message Board
+        </h1>
+        <div
+          style={{
+            background: "#f8f9fa",
+            padding: "1rem",
+            borderRadius: "8px",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <p style={{ margin: 0, color: "#4a5568" }}>
+            Current Message:{" "}
+            <span style={{ fontWeight: "500" }}>{message}</span>
+          </p>
+        </div>
+        <input
+          style={{
+            width: "100%",
+            padding: "0.75rem",
+            borderRadius: "6px",
+            border: "1px solid #e2e8f0",
+            marginBottom: "1rem",
+            fontSize: "1rem",
+          }}
+          type="text"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          placeholder="Enter new message"
+        />
+        <div
+          style={{ display: "flex", gap: "0.5rem", justifyContent: "center" }}
+        >
+          <button
+            onClick={handleUpdateMessage}
+            style={{
+              background: "#4299e1",
+              color: "white",
+              border: "none",
+              padding: "0.75rem 1.5rem",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "1rem",
+              fontWeight: "500",
+              transition: "background 0.2s",
+            }}
+          >
+            Update Message
+          </button>
+          <button
+            onClick={handleUpdateMessage}
+            style={{
+              background: "#48bb78",
+              color: "white",
+              border: "none",
+              padding: "0.75rem 1.5rem",
+              borderRadius: "6px",
+              cursor: "pointer",
+              fontSize: "1rem",
+              fontWeight: "500",
+              transition: "background 0.2s",
+            }}
+          >
+            Refresh
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
