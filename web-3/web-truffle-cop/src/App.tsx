@@ -2,21 +2,33 @@ import { useEffect, useState } from "react";
 import { initWeb3, getMessage, setMessage } from "./utils/web3";
 
 function App() {
-  const [message, setMsg] = useState("");
+  const [message, setMsg] = useState("Loading...");
   const [newMessage, setNewMessage] = useState("");
 
-  useEffect(() => {
-    async function fetchMessage() {
+  const fetchMessage = async () => {
+    try {
       await initWeb3();
       const msg = await getMessage();
       setMsg(msg);
+    } catch (error) {
+      console.error("Error fetching message:", error);
+      setMsg("Error loading message");
     }
+  };
+
+  useEffect(() => {
     fetchMessage();
   }, []);
 
   const handleUpdateMessage = async () => {
     await setMessage(newMessage);
     setMsg(newMessage);
+  };
+
+  const handleRefresh = async () => {
+    setNewMessage("");
+    setMsg("Loading...");
+    await fetchMessage();
   };
 
   return (
@@ -89,7 +101,7 @@ function App() {
             Update Message
           </button>
           <button
-            onClick={handleUpdateMessage}
+            onClick={handleRefresh}
             style={{
               background: "#48bb78",
               color: "white",

@@ -5,7 +5,7 @@ contract HelloWorld {
     string public message;
 
     constructor() {
-        message = "Hello, Blockchain!";
+        message = "Loading...";
     }
 
     function setMessage(string calldata _message) public {
